@@ -11,8 +11,8 @@
     <p><img src="{{blog.image.url}}" alt="사진"></p>
 {% endif %}
 <p>{{blog.body}}</p>
-<a href = "{% url 'main:edit' blog.id %}">수정하기</a>
-<a href = "{% url 'main:delete' blog.id %}">삭제하기</a>
+<a href = "{% url 'main:edit' blog.pk %}">수정하기</a>
+<a href = "{% url 'main:delete' blog.pk %}">삭제하기</a>
 
 {% endblock %}
 
