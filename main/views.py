@@ -1,18 +1,32 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import Blog
 from django.utils import timezone
+# CBV 사용을 위한 코드
+from django.views import generic
 
-def detail(request, id):
-    blog = get_object_or_404(Blog, pk = id)
-    return render(request, 'main/detail.html',{'blog':blog})
+# FBV - 전체 게시물 보기
+# def mainpage(request):
+#    blogs = Blog.objects.all()
+#    return render(request, 'main/mainpage.html', {'blogs':blogs})
 
-def mainpage(request):
-    blogs = Blog.objects.all()
-    return render(request, 'main/mainpage.html', {'blogs':blogs})
+# CBV - 전체 게시물 보기
+class BlogListView(generic.ListView):
+    model = Blog
+    context_object_name = 'blogs' # 객체를 부르는 이름
+    template_name = 'main/mainpage.html'
+    queryset = Blog.objects.all()
 
-def secondpage(request):
-    return render(request, 'main/secondpage.html')
+# FBV - 상세(detail) 내용 보기
+# def detail(request, id):
+#    blog = get_object_or_404(Blog, pk = id)
+#    return render(request, 'main/detail.html',{'blog':blog})
 
+# CBV - 상세(detail) 내용 보기
+class BlogDetailView(generic.DetailView):
+    model = Blog
+    template_name = 'main/detail.html'
+
+# 새 게시물 생성
 def create(request):
     new_blog = Blog()
     new_blog.title = request.POST['title']
