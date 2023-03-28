@@ -51,7 +51,7 @@ class BlogCreateView(generic.CreateView):
 def new(request):
     return render(request, 'main/new.html')
 
-# 수정 화면으로 가는 코드 구현(고칠 필요 X)
+# 수정 화면으로 가는 코드 구현
 def edit(request, pk):
     edit_blog = Blog.objects.get(pk=pk)
     return render(request, 'main/edit.html', {'blog' : edit_blog})
